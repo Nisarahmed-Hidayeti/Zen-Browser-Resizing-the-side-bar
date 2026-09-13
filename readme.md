@@ -31,4 +31,4 @@ If a future Zen update breaks this, it's probably because they renamed the inter
 
 Made because I wanted this to exist and it didn't. Enjoy.
 
-*max width doesnt work i will fix it 
+*max width doesnt work i will fix it*
