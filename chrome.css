@@ -13,8 +13,8 @@
    ========================================================== */
 
 :root {
-  --sr-min-width: var(--mod-sidebarresize-min_width, 180px);
-  --sr-max-width: var(--mod-sidebarresize-max_width, 500px);
+  --sr-min-width: var(--mod-sidebarresize-min_width, 100px);
+  --sr-max-width: var(--mod-sidebarresize-max_width, 800px);
   --sr-handle-width: var(--mod-sidebarresize-handle_width, 3px);
   --sr-handle-color: color-mix(in srgb, var(--zen-primary-color, #7a7aff) 35%, transparent);
 }

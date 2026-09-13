@@ -1,17 +1,17 @@
 [
   {
     "property": "mod.sidebarresize.min_width",
-    "label": "Minimum sidebar width (e.g. 180px)",
+    "label": "Minimum sidebar width (e.g. 100px)",
     "type": "string",
-    "placeholder": "180px",
-    "defaultValue": "180px"
+    "placeholder": "100px",
+    "defaultValue": "100px"
   },
   {
     "property": "mod.sidebarresize.max_width",
-    "label": "Maximum sidebar width (e.g. 500px)",
+    "label": "Maximum sidebar width (e.g. 800px)",
     "type": "string",
-    "placeholder": "500px",
-    "defaultValue": "500px"
+    "placeholder": "800px",
+    "defaultValue": "800px"
   },
   {
     "property": "mod.sidebarresize.handle_width",
