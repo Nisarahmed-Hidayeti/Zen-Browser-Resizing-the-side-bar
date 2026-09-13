@@ -33,7 +33,7 @@
 /* Enforce min/max on the sidebar so a mouse drag can never
    crush it to nothing or blow past a usable width. */
 #zen-sidebar-splitter,
-#navigator-toolbox[zen-sidebar] {
+#navigator-toolbox {
   min-width: var(--sr-min-width) !important;
   max-width: var(--sr-max-width) !important;
 }
