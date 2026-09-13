@@ -30,3 +30,5 @@ This only works when the sidebar is showing normally. If you're using Zen's comp
 If a future Zen update breaks this, it's probably because they renamed the internal element (`#zen-sidebar-splitter`). Pop open the Browser Toolbox, find the real name, swap it in.
 
 Made because I wanted this to exist and it didn't. Enjoy.
+
+*max width doesnt work i will fix it 
