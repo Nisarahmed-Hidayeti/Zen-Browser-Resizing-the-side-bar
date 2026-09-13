@@ -1,0 +1,117 @@
+/* ==========================================================
+   Sidebar Resize+ — chrome.css
+   Makes Zen's native sidebar drag-handle bigger, visible, and
+   constrained to sane min/max widths. Zen Mods are CSS-only,
+   so this styles the *existing* mouse-resize behavior rather
+   than reimplementing it — you drag with your mouse exactly
+   like today, it just feels a lot better.
+
+   If Zen renames its internal sidebar splitter element in a
+   future version, open the Browser Toolbox (Ctrl+Shift+Alt+I),
+   pick the thin strip next to the sidebar, and swap the real
+   id/class into the selectors below.
+   ========================================================== */
+
+:root {
+  --sr-min-width: var(--mod-sidebarresize-min_width, 180px);
+  --sr-max-width: var(--mod-sidebarresize-max_width, 500px);
+  --sr-handle-width: var(--mod-sidebarresize-handle_width, 3px);
+  --sr-handle-color: color-mix(in srgb, var(--zen-primary-color, #7a7aff) 35%, transparent);
+}
+
+/* Dropdown-driven handle color */
+@media (-moz-pref("mod.sidebarresize.handle_color", "blue")) {
+  :root { --sr-handle-color: color-mix(in srgb, #3b82f6 60%, transparent); }
+}
+@media (-moz-pref("mod.sidebarresize.handle_color", "purple")) {
+  :root { --sr-handle-color: color-mix(in srgb, #a855f7 60%, transparent); }
+}
+@media (-moz-pref("mod.sidebarresize.handle_color", "gray")) {
+  :root { --sr-handle-color: color-mix(in srgb, #9ca3af 60%, transparent); }
+}
+
+/* Enforce min/max on the sidebar so a mouse drag can never
+   crush it to nothing or blow past a usable width. */
+#zen-sidebar-splitter,
+#navigator-toolbox[zen-sidebar] {
+  min-width: var(--sr-min-width) !important;
+  max-width: var(--sr-max-width) !important;
+}
+
+/* Widen the draggable strip and add a clear hover/active state
+   so it's obvious where to grab with the mouse. */
+splitter#zen-sidebar-splitter,
+.zen-sidebar-splitter {
+  width: var(--sr-handle-width) !important;
+  min-width: var(--sr-handle-width) !important;
+  max-width: var(--sr-handle-width) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: transparent;
+  border: none !important;
+  transition: background-color 120ms ease;
+  cursor: ew-resize;
+  position: relative;
+  z-index: 10;
+}
+
+/* Zen/Firefox splitters sometimes extend their real hit-test area
+   past the visible box via pseudo-elements or box-sizing quirks.
+   Force those back down so the grab zone actually matches the
+   thin line instead of being invisibly wider. */
+splitter#zen-sidebar-splitter::before,
+.zen-sidebar-splitter::before {
+  display: none !important;
+  content: none !important;
+}
+splitter#zen-sidebar-splitter,
+.zen-sidebar-splitter {
+  box-sizing: content-box !important;
+}
+
+splitter#zen-sidebar-splitter:hover,
+.zen-sidebar-splitter:hover {
+  background-color: color-mix(in srgb, var(--sr-handle-color) 60%, transparent);
+}
+
+splitter#zen-sidebar-splitter:active,
+.zen-sidebar-splitter:active {
+  background-color: color-mix(in srgb, var(--sr-handle-color) 80%, transparent);
+}
+
+/* Grip dots, toggleable via the "Show grip dots" checkbox */
+@media not (-moz-pref("mod.sidebarresize.show_grip")) {
+  splitter#zen-sidebar-splitter::after,
+  .zen-sidebar-splitter::after {
+    display: none !important;
+  }
+}
+
+splitter#zen-sidebar-splitter::after,
+.zen-sidebar-splitter::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  border-radius: 1px;
+  background-color: color-mix(in srgb, currentColor 18%, transparent);
+  opacity: 0;
+  transition: opacity 120ms ease;
+  pointer-events: none;
+}
+
+splitter#zen-sidebar-splitter:hover::after,
+.zen-sidebar-splitter:hover::after {
+  opacity: 1;
+}
+
+/* Smooth width changes when set programmatically (e.g. reset
+   on double-click), skipped mid-drag so it never feels laggy. */
+#zen-sidebar-splitter:not(:active) {
+  transition: width 140ms ease, min-width 140ms ease;
+}
+
+
